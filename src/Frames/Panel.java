@@ -49,7 +49,7 @@ public final class Panel extends JPanel {
         g.setFont(font);
         g.drawImage(image1, 0, 0, null);
 //        g.drawImage(image2, 200, 200, null);
-        g.setColor(new Color(2,212,56).brighter());
+//        g.setColor(new Color(2,212,56).brighter());
         g.drawString("Tiendas Neto", 50, 50);
 //        for(short i = 0; i < heightScreen; i++){
 //            for(short j = 0; j < widthScreen; j++){

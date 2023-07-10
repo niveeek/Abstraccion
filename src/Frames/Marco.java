@@ -5,23 +5,27 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public final class Marco extends JFrame implements ActionListener{
+public final class Marco extends JFrame {
     private Toolkit screen = Toolkit.getDefaultToolkit();
     private String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
     private Panel panel = null;
+    private ColorFondo colorFondo1 = null;
+    private ColorFondo colorFondo2 = null;
 
     public Marco() {
         setVisible(true);
-        setExtendedState(Frame.MAXIMIZED_BOTH);
+//        setExtendedState(Frame.MAXIMIZED_BOTH);
+//        setResizable(false);
+        setBounds(700,300,500,300);
+        setLocationRelativeTo(null);
         setTitle("Prueba Neto");
-//        setBounds(700,300,500,300);
-//        setLocationRelativeTo(null);
-        setResizable(false);
         panel = new Panel();
         add(panel);
-        (panel.getBoton1()).addActionListener(this);
-        (panel.getBoton2()).addActionListener(this);
+        colorFondo1 = new ColorFondo(Color.PINK);
+        colorFondo2 = new ColorFondo(Color.YELLOW);
+        (panel.getBoton1()).addActionListener(colorFondo1);
+        (panel.getBoton2()).addActionListener(colorFondo2);
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
@@ -34,20 +38,28 @@ public final class Marco extends JFrame implements ActionListener{
         }
     }
 
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        if(e.getSource() == (panel.getBoton1())){
-            setIconImage(iconoPropio);
-            (panel.getBoton1()).setEnabled(false);
-            (panel.getBoton2()).setEnabled(true);
-            panel.setForeground(Color.GREEN);
-            panel.setBackground(Color.BLACK);
-        } else if(e.getSource() == (panel.getBoton2())){
-            setIconImage(screen.getImage(getClass().getClass().getName()));
-            (panel.getBoton1()).setEnabled(true);
-            (panel.getBoton2()).setEnabled(false);
-            panel.setForeground(Color.BLACK);
-            panel.setBackground(Color.GREEN);
+    private final class ColorFondo implements ActionListener {
+        private Color color = null;
+
+        public ColorFondo(Color color) {
+            this.color = color;
+        }
+
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(e.getSource() == (panel.getBoton1())){
+                setIconImage(iconoPropio);
+                (panel.getBoton1()).setEnabled(false);
+                (panel.getBoton2()).setEnabled(true);
+                panel.setForeground(Color.WHITE);
+                panel.setBackground(color);
+            } else if(e.getSource() == (panel.getBoton2())){
+                setIconImage(screen.getImage(getClass().getClass().getName()));
+                (panel.getBoton1()).setEnabled(true);
+                (panel.getBoton2()).setEnabled(false);
+                panel.setForeground(Color.GRAY);
+                panel.setBackground(color);
+            }
         }
     }
 }
