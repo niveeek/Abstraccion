@@ -25,6 +25,14 @@ public final class Marco extends JFrame {
         (panel.getBoton1()).addActionListener(new ColorFondo(Color.PINK));
         (panel.getBoton2()).addActionListener(new ColorFondo(Color.YELLOW));
         addWindowListener(new Window());
+        addWindowStateListener(new WindowStateListener() {
+            @Override
+            public void windowStateChanged(WindowEvent e) {
+                System.out.println("Viejo estado: " + e.getOldState());
+                System.out.println("Nuevo estado: " + e.getNewState());
+                if (e.getNewState() == Frame.MAXIMIZED_BOTH) System.out.println("Ventana maximizada ambos lados");
+            }
+        });
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
