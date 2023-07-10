@@ -31,23 +31,25 @@ public final class Temporizador {
     public void terminar(){
         //CLASE INTERNA 1 DENTRO DE MÉTODO 2 DE CLASE EXTERNA
         class Mensaje {
-            public static void mensajeStop(){
+            public void mensajeStop(){
                 JOptionPane.showMessageDialog(null,"Stop");
             }
         }
-        Mensaje.mensajeStop();
+        Mensaje mensaje = new Mensaje();
+        mensaje.mensajeStop();
         ///CLASE INTERNA 2 DENTRO DE MÉTODO 2 DE CLASE EXTERNA QUE HEREDA CLASE INTERNA 1
         final class Mensaje2 extends Mensaje{
             //MÉTODO INTERNO 1 DE CLASE INTERNA 2
-            public static void mensajeStopClicked(){
+            public void mensajeStopClicked(){
                 JOptionPane.showMessageDialog(null,"Stop clicked");
             }
         }
-        Mensaje2.mensajeStopClicked();
+        Mensaje2 mensaje2 = new Mensaje2();
+        mensaje2.mensajeStopClicked();
         Listener listener = (Listener) actionListener; //DOWNCASTING
         Listener.Mensaje3 m3 = listener.new Mensaje3(); //JERARQUÍA DE CLASES INTERNAS POR INSTANCIA
         m3.mensajeMetodo3();
-        Listener.Mensaje3.mensajeMetodo5(); //JERARQUÍA DE CLASES INTERNAS POR ESTÁTICA
+//        Listener.Mensaje3.mensajeMetodo5(); //JERARQUÍA DE CLASES INTERNAS POR ESTÁTICA
         if (listener instanceof Listener) {
             listener.systemExit();
         } else {
@@ -71,11 +73,12 @@ public final class Temporizador {
         public void systemExit(){
             //CLASE INTERNA 1 DENTRO DE MÉTODO 1 DENTRO DE CLASE INTERNA LISTENER DENTRO DE CLASE EXTERNA
             final class Mensaje4 {
-                public static void mensajeMetodo4(){
+                public void mensajeMetodo4(){
                     JOptionPane.showMessageDialog(null,"End Program");
                 }
             }
-            Mensaje4.mensajeMetodo4();
+            Mensaje4 mensaje4 = new Mensaje4();
+            mensaje4.mensajeMetodo4();
             System.exit(0);
         }
         //CLASE INTERNA 2 PRIVADA 2 DENTRO DE CLASE PRIVADA INTERNA 1 DENTRO DE CLASE EXTERNA
@@ -83,7 +86,7 @@ public final class Temporizador {
             public void mensajeMetodo3(){
                 JOptionPane.showMessageDialog(null,"Mid Program");
             }
-            public static void mensajeMetodo5(){
+            public void mensajeMetodo5(){
                 JOptionPane.showMessageDialog(null,"Mid-Upper Program");
             }
         }

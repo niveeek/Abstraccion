@@ -5,15 +5,12 @@ import java.awt.*;
 import java.awt.event.*;
 
 public final class Marco extends JFrame {
-    private Toolkit screen = Toolkit.getDefaultToolkit();
-    private String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
+    private final Toolkit screen = Toolkit.getDefaultToolkit();
+    private final String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
-    private Panel panel;
+    private final Panel panel;
     private ColorFondo colorFondo1;
     private ColorFondo colorFondo2;
-    private Window window;
-    private static short keyCode;
-    private static char keyLetter;
 
     public Marco() {
         setVisible(true);
@@ -36,6 +33,7 @@ public final class Marco extends JFrame {
             }
         });
         addKeyListener(new Keys());
+        addMouseListener(new Mouse());
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
@@ -49,7 +47,7 @@ public final class Marco extends JFrame {
     }
 
     private final class ColorFondo implements ActionListener {
-        private Color color = null;
+        private final Color color;
 
         public ColorFondo(Color color) {
             this.color = color;
@@ -64,7 +62,7 @@ public final class Marco extends JFrame {
                 panel.setForeground(Color.WHITE);
                 panel.setBackground(color);
             } else if(e.getSource() == (panel.getBoton2())){
-                setIconImage(screen.getImage(getClass().getClass().getName()));
+                setIconImage(screen.getImage(getClass().getName()));
                 (panel.getBoton1()).setEnabled(true);
                 (panel.getBoton2()).setEnabled(false);
                 panel.setForeground(Color.GRAY);
@@ -73,28 +71,35 @@ public final class Marco extends JFrame {
         }
     }
 
-    private final class Window extends WindowAdapter {
+    private static final class Window extends WindowAdapter {
         @Override
         public void windowIconified(WindowEvent e) {
             System.out.println("Ventana minimizada");
         }
     }
-    private final class Keys implements KeyListener {
+    private static final class Keys implements KeyListener {
         @Override
         public void keyTyped(KeyEvent e) {
-            keyLetter = e.getKeyChar();
+            char keyLetter = e.getKeyChar();
             System.out.println(keyLetter);
         }
 
         @Override
         public void keyPressed(KeyEvent e) {
-            keyCode = (short) e.getKeyCode();
+            short keyCode = (short) e.getKeyCode();
             System.out.println(keyCode);
         }
 
         @Override
         public void keyReleased(KeyEvent e) {
 
+        }
+    }
+
+    private static final class Mouse extends MouseAdapter {
+        @Override
+        public void mouseClicked(MouseEvent e) {
+            System.out.println("Has hecho click");
         }
     }
 }

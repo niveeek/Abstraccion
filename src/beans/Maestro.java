@@ -43,12 +43,13 @@ public final class Maestro extends Persona implements Comparable, I_Maestro, I_D
     //JAVA 14: pattern matching for instanceof
     @Override
     public int compareTo(Object o) {
-        if (o instanceof Persona persona) {
-            //INVERTIR LOS PARÁMETROS SI SE BUSCA EL RESULTADO INVERSO
-            return Byte.compare(persona.getEdad(), getEdad());
-        } else {
-            return 0;
-        }
+//        if (o instanceof Persona persona) {
+//            //INVERTIR LOS PARÁMETROS SI SE BUSCA EL RESULTADO INVERSO
+//            return Byte.compare(persona.getEdad(), getEdad());
+//        } else {
+//            return 0;
+//        }
+        return 0;
     }
 
     //MÉTODOS IMPLEMENTADOS DE I_MAESTRO
