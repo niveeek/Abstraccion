@@ -1,4 +1,5 @@
 package Frames;
+
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
@@ -14,9 +15,6 @@ public final class Panel extends JPanel {
     private int widthImage = 0;
     private Image image1 = null;
     private Image image2 = null;
-    private File file1 = null;
-    private File file2 = null;
-    private Font font = null;
     private final JButton boton1 = new JButton("Personalizado");
     private final JButton boton2 = new JButton("Original");
 
@@ -35,22 +33,25 @@ public final class Panel extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        file1 = new File("src/images/carita.png");
-        file2 = new File("src/images/neto.jpeg");
         try {
-            image1 = ImageIO.read(file1);
-            image2 = ImageIO.read(file2);
+            image1 = ImageIO.read(new File("src/images/carita.png"));
+            image2 = ImageIO.read(new File("src/images/neto.jpeg"));
         } catch (IOException e) {
-            System.out.println("No existe la imagen: "+e.getMessage());
+            if(image1 == null) {
+                System.out.println("No existe la imagen1: "+ e.getMessage());
+            } else if (image2 == null) {
+                System.out.println("No existe la imagen2: "+ e.getMessage());
+            } else {
+                System.out.println("No existen ambas imágenes: "+e.getMessage());
+            }
         }
         heightImage = image1.getHeight(this);
         widthImage = image1.getWidth(this);
-        font = new Font("Times New Roman", Font.ITALIC, 30);
-        g.setFont(font);
+        g.setFont(new Font("Times New Roman", Font.ITALIC, 20));
         g.drawImage(image1, 0, 0, null);
 //        g.drawImage(image2, 200, 200, null);
 //        g.setColor(new Color(2,212,56).brighter());
-        g.drawString("Tiendas Neto", 50, 50);
+        g.drawString("Tiendas Neto", 20, 20);
 //        for(short i = 0; i < heightScreen; i++){
 //            for(short j = 0; j < widthScreen; j++){
 //                if(i+j>0) {

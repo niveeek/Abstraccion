@@ -2,8 +2,7 @@ package Frames;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.event.*;
 
 public final class Marco extends JFrame {
     private Toolkit screen = Toolkit.getDefaultToolkit();
@@ -12,6 +11,7 @@ public final class Marco extends JFrame {
     private Panel panel = null;
     private ColorFondo colorFondo1 = null;
     private ColorFondo colorFondo2 = null;
+    private Window window = null;
 
     public Marco() {
         setVisible(true);
@@ -22,10 +22,9 @@ public final class Marco extends JFrame {
         setTitle("Prueba Neto");
         panel = new Panel();
         add(panel);
-        colorFondo1 = new ColorFondo(Color.PINK);
-        colorFondo2 = new ColorFondo(Color.YELLOW);
-        (panel.getBoton1()).addActionListener(colorFondo1);
-        (panel.getBoton2()).addActionListener(colorFondo2);
+        (panel.getBoton1()).addActionListener(new ColorFondo(Color.PINK));
+        (panel.getBoton2()).addActionListener(new ColorFondo(Color.YELLOW));
+        addWindowListener(new Window());
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
@@ -60,6 +59,13 @@ public final class Marco extends JFrame {
                 panel.setForeground(Color.GRAY);
                 panel.setBackground(color);
             }
+        }
+    }
+
+    private final class Window extends WindowAdapter {
+        @Override
+        public void windowIconified(WindowEvent e) {
+            System.out.println("Ventana minimizada");
         }
     }
 }
