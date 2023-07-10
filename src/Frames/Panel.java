@@ -9,12 +9,12 @@ import java.io.IOException;
 public final class Panel extends JPanel {
     private Toolkit screen = Toolkit.getDefaultToolkit();
     private Dimension dimension = screen.getScreenSize();
-    private int heightScreen = dimension.height;
-    private int widthScreen = dimension.width;
-    private int heightImage = 0;
-    private int widthImage = 0;
-    private Image image1 = null;
-    private Image image2 = null;
+    private short heightScreen = (short) dimension.height;
+    private short widthScreen = (short) dimension.width;
+    private short heightImage;
+    private short widthImage;
+    private Image image1;
+    private Image image2;
     private final JButton boton1 = new JButton("Personalizado");
     private final JButton boton2 = new JButton("Original");
 
@@ -45,8 +45,8 @@ public final class Panel extends JPanel {
                 System.out.println("No existen ambas imágenes: "+e.getMessage());
             }
         }
-        heightImage = image1.getHeight(this);
-        widthImage = image1.getWidth(this);
+        heightImage = (short) image1.getHeight(this);
+        widthImage = (short) image1.getWidth(this);
         g.setFont(new Font("Times New Roman", Font.ITALIC, 20));
         g.drawImage(image1, 0, 0, null);
 //        g.drawImage(image2, 200, 200, null);

@@ -8,10 +8,12 @@ public final class Marco extends JFrame {
     private Toolkit screen = Toolkit.getDefaultToolkit();
     private String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
-    private Panel panel = null;
-    private ColorFondo colorFondo1 = null;
-    private ColorFondo colorFondo2 = null;
-    private Window window = null;
+    private Panel panel;
+    private ColorFondo colorFondo1;
+    private ColorFondo colorFondo2;
+    private Window window;
+    private static short keyCode;
+    private static char keyLetter;
 
     public Marco() {
         setVisible(true);
@@ -33,6 +35,7 @@ public final class Marco extends JFrame {
                 if (e.getNewState() == Frame.MAXIMIZED_BOTH) System.out.println("Ventana maximizada ambos lados");
             }
         });
+        addKeyListener(new Keys());
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
@@ -74,6 +77,24 @@ public final class Marco extends JFrame {
         @Override
         public void windowIconified(WindowEvent e) {
             System.out.println("Ventana minimizada");
+        }
+    }
+    private final class Keys implements KeyListener {
+        @Override
+        public void keyTyped(KeyEvent e) {
+            keyLetter = e.getKeyChar();
+            System.out.println(keyLetter);
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            keyCode = (short) e.getKeyCode();
+            System.out.println(keyCode);
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
         }
     }
 }
