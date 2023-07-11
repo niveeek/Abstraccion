@@ -15,17 +15,28 @@ public final class Panel extends JPanel {
     private Image image2;
     private final JButton boton1 = new JButton("Personalizado");
     private final JButton boton2 = new JButton("Original");
+    private final JTextField jTextField = new JTextField();
+    private final JTextField jTextField2 = new JTextField();
 
     public Panel() {
+        setLayout(null);
         boton1.setEnabled(true);
         boton1.setForeground(Color.RED);
         boton1.setBackground(Color.CYAN);
+        boton1.setBounds(150, 20, 125, 20);
         add(boton1);
 
         boton2.setEnabled(true);
         boton2.setForeground(Color.WHITE);
         boton2.setBackground(Color.MAGENTA);
+        boton2.setBounds(300, 20, 85, 20);
         add(boton2);
+
+        jTextField.setBounds(150, 50, 100, 20);
+        add(jTextField);
+
+        jTextField2.setBounds(275, 50, 100, 20);
+        add(jTextField2);
     }
 
     @Override
@@ -67,5 +78,13 @@ public final class Panel extends JPanel {
 
     public JButton getBoton2() {
         return boton2;
+    }
+
+    public JTextField getjTextField() {
+        return jTextField;
+    }
+
+    public JTextField getjTextField2() {
+        return jTextField2;
     }
 }

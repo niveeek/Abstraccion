@@ -13,7 +13,6 @@ public final class Marco extends JFrame {
 //    private ColorFondo colorFondo2;
 
     public Marco() {
-        setVisible(true);
 //        setExtendedState(Frame.MAXIMIZED_BOTH);
 //        setResizable(false);
         setBounds(700,300,500,300);
@@ -21,6 +20,7 @@ public final class Marco extends JFrame {
         setTitle("Prueba Neto");
         panel = new Panel();
         add(panel);
+        setVisible(true);
         (panel.getBoton1()).addActionListener(new ColorFondo(Color.PINK));
         (panel.getBoton2()).addActionListener(new ColorFondo(Color.YELLOW));
         addWindowListener(new Window());
@@ -35,6 +35,8 @@ public final class Marco extends JFrame {
         addKeyListener(new Keys());
         addMouseListener(new Mouse());
         addMouseMotionListener(new MouseMotion());
+        (panel.getjTextField()).addFocusListener(new Focus());
+        (panel.getjTextField2()).addFocusListener(new Focus());
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
@@ -101,7 +103,7 @@ public final class Marco extends JFrame {
         @Override
         public void mouseClicked(MouseEvent e) {
 //            System.out.println("X: " + e.getX() + " Y: " + e.getY());
-            System.out.println(e.getClickCount());
+//            System.out.println(e.getClickCount());
         }
 
         @Override
@@ -110,19 +112,32 @@ public final class Marco extends JFrame {
             short middle = InputEvent.BUTTON2_DOWN_MASK;
             short right = InputEvent.BUTTON3_DOWN_MASK;
 //            System.out.println(e.getModifiersEx());
-            System.out.println(left + " " + middle + " " + right);
+//            System.out.println(left + " " + middle + " " + right);
         }
     }
 
     private static final class MouseMotion implements MouseMotionListener {
         @Override
         public void mouseDragged(MouseEvent e) {
-            System.out.println("Estás arrastrando el mouse");
+//            System.out.println("Estás arrastrando el mouse");
         }
 
         @Override
         public void mouseMoved(MouseEvent e) {
-            System.out.println("Has movido el mouse");
+//            System.out.println("Has movido el mouse");
         }
     }
+
+    private final class Focus implements FocusListener {
+        @Override
+        public void focusGained(FocusEvent e) {
+            System.out.println("Has perdido el foco");
+        }
+
+        @Override
+        public void focusLost(FocusEvent e) {
+            System.out.println("Has ganado el foco");
+        }
+    }
+
 }
