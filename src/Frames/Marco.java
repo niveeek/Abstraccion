@@ -11,13 +11,14 @@ public final class Marco extends JFrame {
     private final Panel panel;
 //    private ColorFondo colorFondo1;
 //    private ColorFondo colorFondo2;
+    private boolean aprobacionEmail;
 
     public Marco() {
 //        setExtendedState(Frame.MAXIMIZED_BOTH);
 //        setResizable(false);
         setBounds(700,300,500,300);
         setLocationRelativeTo(null);
-        setTitle("Prueba Neto");
+//        setTitle("Prueba Neto");
         panel = new Panel();
         add(panel);
         setVisible(true);
@@ -136,7 +137,13 @@ public final class Marco extends JFrame {
 
         @Override
         public void focusLost(FocusEvent e) {
-            System.out.println("Has ganado el foco");
+            if(panel.getjTextField().getText().contains("@")){
+                aprobacionEmail = true;
+                System.out.println("Email correcto");
+            } else {
+                aprobacionEmail = false;
+                System.out.println("Email incorrecto");
+            }
         }
     }
 
