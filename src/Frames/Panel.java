@@ -57,6 +57,8 @@ public final class Panel extends JPanel {
 //                }
 //            }
 //        }
+        updateUI();
+//        repaint();
     }
 
     public JButton getBoton1() {

@@ -9,8 +9,8 @@ public final class Marco extends JFrame {
     private final String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
     private final Panel panel;
-    private ColorFondo colorFondo1;
-    private ColorFondo colorFondo2;
+//    private ColorFondo colorFondo1;
+//    private ColorFondo colorFondo2;
 
     public Marco() {
         setVisible(true);
@@ -34,10 +34,11 @@ public final class Marco extends JFrame {
         });
         addKeyListener(new Keys());
         addMouseListener(new Mouse());
+        addMouseMotionListener(new MouseMotion());
 //        setLayout(new FlowLayout());
         setIconImage(getIconImage());
         setIconImage(iconoPropio);
-        setDefaultCloseOperation(Marco.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
     }
 
     public void getFonts(){
@@ -92,14 +93,36 @@ public final class Marco extends JFrame {
 
         @Override
         public void keyReleased(KeyEvent e) {
-
+            // TODO document why this method is empty
         }
     }
 
     private static final class Mouse extends MouseAdapter {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Has hecho click");
+//            System.out.println("X: " + e.getX() + " Y: " + e.getY());
+            System.out.println(e.getClickCount());
+        }
+
+        @Override
+        public void mousePressed(MouseEvent e) {
+            short left = InputEvent.BUTTON1_DOWN_MASK;
+            short middle = InputEvent.BUTTON2_DOWN_MASK;
+            short right = InputEvent.BUTTON3_DOWN_MASK;
+//            System.out.println(e.getModifiersEx());
+            System.out.println(left + " " + middle + " " + right);
+        }
+    }
+
+    private static final class MouseMotion implements MouseMotionListener {
+        @Override
+        public void mouseDragged(MouseEvent e) {
+            System.out.println("Estás arrastrando el mouse");
+        }
+
+        @Override
+        public void mouseMoved(MouseEvent e) {
+            System.out.println("Has movido el mouse");
         }
     }
 }
