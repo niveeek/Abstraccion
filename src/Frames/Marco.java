@@ -8,24 +8,28 @@ public final class Marco extends JFrame {
     private final Toolkit screen = Toolkit.getDefaultToolkit();
     private final String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
-    private final Panel panel;
+    private Panel panel;
 //    private ColorFondo colorFondo1;
 //    private ColorFondo colorFondo2;
     private boolean aprobacionEmail;
+    private Marco marco1;
+    private Marco marco2;
 
-    public Marco() {
+    public void start() {
+        marco1 = new Marco();
+        marco2 = new Marco();
+        panel = new Panel();
 //        setExtendedState(Frame.MAXIMIZED_BOTH);
 //        setResizable(false);
-        setBounds(700,300,500,300);
-        setLocationRelativeTo(null);
+        marco1.setBounds(700,300,500,300);
+        marco1.setLocationRelativeTo(null);
 //        setTitle("Prueba Neto");
-        panel = new Panel();
-        add(panel);
-        setVisible(true);
+        marco1.add(panel);
+        marco1.setVisible(true);
         (panel.getBoton1()).addActionListener(new ColorFondo(Color.PINK));
         (panel.getBoton2()).addActionListener(new ColorFondo(Color.YELLOW));
-        addWindowListener(new Window());
-        addWindowStateListener(new WindowStateListener() {
+        marco1.addWindowListener(new Window());
+        marco1.addWindowStateListener(new WindowStateListener() {
             @Override
             public void windowStateChanged(WindowEvent e) {
                 System.out.println("Viejo estado: " + e.getOldState());
@@ -33,15 +37,21 @@ public final class Marco extends JFrame {
                 if (e.getNewState() == Frame.MAXIMIZED_BOTH) System.out.println("Ventana maximizada ambos lados");
             }
         });
-        addKeyListener(new Keys());
-        addMouseListener(new Mouse());
-        addMouseMotionListener(new MouseMotion());
+        marco1.addKeyListener(new Keys());
+        marco1.addMouseListener(new Mouse());
+        marco1.addMouseMotionListener(new MouseMotion());
+        marco1.addWindowFocusListener(new WindowsFocus());
         (panel.getjTextField()).addFocusListener(new Focus());
         (panel.getjTextField2()).addFocusListener(new Focus());
 //        setLayout(new FlowLayout());
-        setIconImage(getIconImage());
-        setIconImage(iconoPropio);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        marco1.setIconImage(getIconImage());
+        marco1.setIconImage(iconoPropio);
+        marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+///////////////////////// M A R C O  2 ///////////////////////////////
+        marco2.setBounds(0,0,400,150);
+        marco2.setVisible(true);
+        marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        marco2.addWindowFocusListener(new WindowsFocus());
     }
 
     public void getFonts(){
@@ -147,4 +157,23 @@ public final class Marco extends JFrame {
         }
     }
 
+    private final class WindowsFocus implements WindowFocusListener{
+        @Override
+        public void windowGainedFocus(WindowEvent e) {
+            if(e.getSource() == marco1){
+                marco1.setTitle("Tengo el foco");
+            } else {
+                marco2.setTitle("Tengo el foco");
+            }
+        }
+
+        @Override
+        public void windowLostFocus(WindowEvent e) {
+            if(e.getSource() == marco1){
+                marco1.setTitle("");
+            } else {
+                marco2.setTitle("");
+            }
+        }
+    }
 }

@@ -76,6 +76,7 @@ public class Main {
 //        System.out.println(sb3);
         Temporizador temporizador = new Temporizador((short) 3000, true, personas[0]);
 //        temporizador.proceso();
-        Marco marco = new Marco();
+        Marco marcos = new Marco();
+        marcos.start();
     }
 }
