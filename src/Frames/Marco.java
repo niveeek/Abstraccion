@@ -9,25 +9,20 @@ public final class Marco extends JFrame {
     private final String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
     private Panel panel;
-//    private ColorFondo colorFondo1;
-//    private ColorFondo colorFondo2;
-    private boolean aprobacionEmail;
-    private Marco marco1;
-    private Marco marco2;
+    private Marco marco1, marco2;
 
     public void start() {
         marco1 = new Marco();
         marco2 = new Marco();
         panel = new Panel();
-//        setExtendedState(Frame.MAXIMIZED_BOTH);
-//        setResizable(false);
+//        marco1.setExtendedState(Frame.MAXIMIZED_BOTH);
+//        marco1.setResizable(false);
         marco1.setBounds(700,300,500,300);
         marco1.setLocationRelativeTo(null);
-//        setTitle("Prueba Neto");
         marco1.add(panel);
         marco1.setVisible(true);
-        (panel.getBoton1()).addActionListener(new ColorFondo(Color.PINK));
-        (panel.getBoton2()).addActionListener(new ColorFondo(Color.YELLOW));
+        (panel.getBoton1()).addActionListener(new IconWindow());
+        (panel.getBoton2()).addActionListener(new IconWindow());
         marco1.addWindowListener(new Window());
         marco1.addWindowStateListener(new WindowStateListener() {
             @Override
@@ -44,12 +39,10 @@ public final class Marco extends JFrame {
         (panel.getjTextField()).addFocusListener(new Focus());
         (panel.getjTextField2()).addFocusListener(new Focus());
 //        setLayout(new FlowLayout());
-        marco1.setIconImage(getIconImage());
-        marco1.setIconImage(iconoPropio);
         marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 ///////////////////////// M A R C O  2 ///////////////////////////////
         marco2.setBounds(0,0,400,150);
-        marco2.setVisible(true);
+        marco2.setVisible(false);
         marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         marco2.addWindowFocusListener(new WindowsFocus());
     }
@@ -60,27 +53,17 @@ public final class Marco extends JFrame {
         }
     }
 
-    private final class ColorFondo implements ActionListener {
-        private final Color color;
-
-        public ColorFondo(Color color) {
-            this.color = color;
-        }
-
+    private final class IconWindow implements ActionListener {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == (panel.getBoton1())){
-                setIconImage(iconoPropio);
+                marco1.setIconImage(iconoPropio);
                 (panel.getBoton1()).setEnabled(false);
                 (panel.getBoton2()).setEnabled(true);
-                panel.setForeground(Color.WHITE);
-                panel.setBackground(color);
             } else if(e.getSource() == (panel.getBoton2())){
-                setIconImage(screen.getImage(getClass().getName()));
+                marco1.setIconImage(screen.getImage(getClass().getName()));
                 (panel.getBoton1()).setEnabled(true);
                 (panel.getBoton2()).setEnabled(false);
-                panel.setForeground(Color.GRAY);
-                panel.setBackground(color);
             }
         }
     }
@@ -140,20 +123,31 @@ public final class Marco extends JFrame {
     }
 
     private final class Focus implements FocusListener {
+//        private boolean aprobacionEmail;
         @Override
         public void focusGained(FocusEvent e) {
-            System.out.println("Has perdido el foco");
+//            if(e.getSource() == panel.getjTextField()){
+//                System.out.println("Has ganado el foco en jTextField");
+//            } else {
+//                System.out.println("Has ganado el foco en jTextField2");
+//            }
         }
 
         @Override
         public void focusLost(FocusEvent e) {
-            if(panel.getjTextField().getText().contains("@")){
-                aprobacionEmail = true;
-                System.out.println("Email correcto");
-            } else {
-                aprobacionEmail = false;
-                System.out.println("Email incorrecto");
-            }
+//            if(e.getSource() == panel.getjTextField()){
+//                System.out.println("Has perdido el foco en jTextField");
+//            } else {
+//                System.out.println("Has perdido el foco en jTextField2");
+//            }
+
+//            if(panel.getjTextField().getText().contains("@")){
+//                aprobacionEmail = true;
+//                System.out.println("Email correcto");
+//            } else {
+//                aprobacionEmail = false;
+//                System.out.println("Email incorrecto");
+//            }
         }
     }
 
@@ -176,4 +170,5 @@ public final class Marco extends JFrame {
             }
         }
     }
+
 }
