@@ -3,7 +3,7 @@
 * @Ejercicio: 2 Abstracción de problemas,
 * @Descripción: El usuario desea ingresar al edificio para poder realizar su examen, sólo modele un sistema mediante clases y objetos en un nuevo proyecto de java describiendo el conjunto de pasos como atributos y métodos desde el ingreso al establecimiento hasta el inicio del examen.
 * */
-import Frames.Marco;
+import Frames.Frame;
 import Timer.Temporizador;
 import beans.Persona;
 import enums.*;
@@ -76,7 +76,7 @@ public class Main {
 //        System.out.println(sb3);
         Temporizador temporizador = new Temporizador((short) 3000, true, personas[0]);
 //        temporizador.proceso();
-        Marco marcos = new Marco();
+        Frame marcos = new Frame();
         marcos.start();
     }
 }

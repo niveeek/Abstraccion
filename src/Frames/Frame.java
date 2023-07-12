@@ -4,47 +4,48 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-public final class Marco extends JFrame {
+public final class Frame extends JFrame {
     private final Toolkit screen = Toolkit.getDefaultToolkit();
     private final String [] fonts = GraphicsEnvironment.getLocalGraphicsEnvironment().getAvailableFontFamilyNames();
     private final Image iconoPropio = screen.getImage(getClass().getResource("/images/carita.png"));
     private Panel panel;
-    private Marco marco1, marco2;
+    private Frame frame1, frame2;
+    private static int counter = 0;
 
     public void start() {
-        marco1 = new Marco();
-        marco2 = new Marco();
+        frame1 = new Frame();
+        frame2 = new Frame();
         panel = new Panel();
 //        marco1.setExtendedState(Frame.MAXIMIZED_BOTH);
 //        marco1.setResizable(false);
-        marco1.setBounds(700,300,500,300);
-        marco1.setLocationRelativeTo(null);
-        marco1.add(panel);
-        marco1.setVisible(true);
+        frame1.setBounds(700,300,500,300);
+        frame1.setLocationRelativeTo(null);
+        frame1.add(panel);
+        frame1.setVisible(true);
         (panel.getBoton1()).addActionListener(new IconWindow());
         (panel.getBoton2()).addActionListener(new IconWindow());
-        marco1.addWindowListener(new Window());
-        marco1.addWindowStateListener(new WindowStateListener() {
+        frame1.addWindowListener(new Window());
+        frame1.addWindowStateListener(new WindowStateListener() {
             @Override
             public void windowStateChanged(WindowEvent e) {
                 System.out.println("Viejo estado: " + e.getOldState());
                 System.out.println("Nuevo estado: " + e.getNewState());
-                if (e.getNewState() == Frame.MAXIMIZED_BOTH) System.out.println("Ventana maximizada ambos lados");
+                if (e.getNewState() == java.awt.Frame.MAXIMIZED_BOTH) System.out.println("Ventana maximizada ambos lados");
             }
         });
-        marco1.addKeyListener(new Keys());
-        marco1.addMouseListener(new Mouse());
-        marco1.addMouseMotionListener(new MouseMotion());
-        marco1.addWindowFocusListener(new WindowsFocus());
+        frame1.addKeyListener(new Keys());
+        frame1.addMouseListener(new Mouse());
+        frame1.addMouseMotionListener(new MouseMotion());
+        frame1.addWindowFocusListener(new WindowsFocus());
         (panel.getjTextField()).addFocusListener(new Focus());
         (panel.getjTextField2()).addFocusListener(new Focus());
 //        setLayout(new FlowLayout());
-        marco1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame1.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 ///////////////////////// M A R C O  2 ///////////////////////////////
-        marco2.setBounds(0,0,400,150);
-        marco2.setVisible(false);
-        marco2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        marco2.addWindowFocusListener(new WindowsFocus());
+        frame2.setBounds(0,0,400,150);
+        frame2.setVisible(false);
+        frame2.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame2.addWindowFocusListener(new WindowsFocus());
     }
 
     public void getFonts(){
@@ -57,11 +58,11 @@ public final class Marco extends JFrame {
         @Override
         public void actionPerformed(ActionEvent e) {
             if(e.getSource() == (panel.getBoton1())){
-                marco1.setIconImage(iconoPropio);
+                frame1.setIconImage(iconoPropio);
                 (panel.getBoton1()).setEnabled(false);
                 (panel.getBoton2()).setEnabled(true);
             } else if(e.getSource() == (panel.getBoton2())){
-                marco1.setIconImage(screen.getImage(getClass().getName()));
+                frame1.setIconImage(screen.getImage(getClass().getName()));
                 (panel.getBoton1()).setEnabled(true);
                 (panel.getBoton2()).setEnabled(false);
             }
@@ -154,21 +155,36 @@ public final class Marco extends JFrame {
     private final class WindowsFocus implements WindowFocusListener{
         @Override
         public void windowGainedFocus(WindowEvent e) {
-            if(e.getSource() == marco1){
-                marco1.setTitle("Tengo el foco");
+            if(e.getSource() == frame1){
+                frame1.setTitle("Tengo el foco");
             } else {
-                marco2.setTitle("Tengo el foco");
+                frame2.setTitle("Tengo el foco");
             }
         }
 
         @Override
         public void windowLostFocus(WindowEvent e) {
-            if(e.getSource() == marco1){
-                marco1.setTitle("");
+            if(e.getSource() == frame1){
+                frame1.setTitle("");
             } else {
-                marco2.setTitle("");
+                frame2.setTitle("");
             }
         }
     }
 
+    final class CreateNewWindow {
+        public CreateNewWindow(JButton btn2) {
+            counter++;
+            setTitle("Ventana: " + counter);
+            setBounds(30 * counter, 30 * counter, 300, 150);
+            setVisible(true);
+            btn2.addActionListener(new DeleteNewWidows());
+        }
+        private final class DeleteNewWidows implements ActionListener {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+            }
+        }
+    }
 }

@@ -4,6 +4,7 @@ import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
@@ -13,12 +14,13 @@ public final class Panel extends JPanel {
     private static final short heightScreen = (short) dimension.height;
     private static final short widthScreen = (short) dimension.width;
     private Image image1, image2;
-    private JButton boton1, boton2, button1, button2;
+    private JButton boton1, boton2, button1, button2, btn1, btn2;
     private final JTextField jTextField = new JTextField();
     private final JTextField jTextField2 = new JTextField();
     private final ActionButton actionButton1, actionButton2;
     private static final String pathImage1 = "src/images/carita.png";
     private static final String pathImage2 = "src/images/neto.jpeg";
+    private final Color panelColor = UIManager.getColor("Panel.background");
 
     public Panel() {
         setLayout(null);
@@ -37,16 +39,18 @@ public final class Panel extends JPanel {
         add(boton2);
 
         actionButton1 = new ActionButton("Personalizado", new ImageIcon(pathImage1), Color.BLUE);
-        actionButton2 = new ActionButton("Original", new ImageIcon(pathImage1), Color.RED);
+        actionButton2 = new ActionButton("Original", new ImageIcon(pathImage1), panelColor);
 
         button1 = new JButton(actionButton1);
         button1.setEnabled(true);
         button1.setForeground(Color.GRAY);
+        button1.setBackground(Color.YELLOW);
         button1.setBounds(150, 80, 140, 25);
         add(button1);
 
         button2 = new JButton(actionButton2);
         button2.setEnabled(true);
+        button2.setBackground(Color.GREEN);
         button2.setForeground(Color.GRAY);
         button2.setBounds(300, 80, 100, 25);
         add(button2);
@@ -60,11 +64,27 @@ public final class Panel extends JPanel {
         InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
         inputMap.put(KeyStroke.getKeyStroke("ctrl B"), "actionMapKey1");
         inputMap.put(KeyStroke.getKeyStroke("shift B"), "actionMapKey1");
-        inputMap.put(KeyStroke.getKeyStroke("ctrl R"), "actionMapKey2");
-        inputMap.put(KeyStroke.getKeyStroke("shift R"), "actionMapKey2");
+        inputMap.put(KeyStroke.getKeyStroke("ctrl O"), "actionMapKey2");
+        inputMap.put(KeyStroke.getKeyStroke("shift O"), "actionMapKey2");
         ActionMap actionMap = getActionMap();
         actionMap.put("actionMapKey1",actionButton1);
         actionMap.put("actionMapKey2",actionButton2);
+
+        btn1 = new JButton("Crea Ventana");
+        btn1.setEnabled(true);
+        btn1.setBackground(Color.BLACK);
+        btn1.setForeground(Color.WHITE);
+        btn1.setBounds(150, 110, 140, 25);
+        add(btn1);
+
+        btn2 = new JButton("Cierra Ventanas");
+        btn2.setEnabled(true);
+        btn2.setBackground(Color.BLACK);
+        btn2.setForeground(Color.WHITE);
+        btn2.setBounds(300, 110, 140, 25);
+        add(btn2);
+
+        btn1.addActionListener(new ListenerNewWindow());
     }
 
     @Override
@@ -117,13 +137,13 @@ public final class Panel extends JPanel {
     }
 
     private final class ActionButton extends AbstractAction /*implements Action*/ {
-//        private String nombreBoton;
-//        private ImageIcon iconoPropio;
-//        private Color color, colorSelected;
+        private String nombreBoton;
+        private ImageIcon iconoPropio;
+        private Color color, colorSelected;
         public ActionButton(String nombreBoton, ImageIcon iconoPropio, Color color) {
-//            this.nombreBoton = nombreBoton;
-//            this.iconoPropio = iconoPropio;
-//            this.color = color;
+            this.nombreBoton = nombreBoton;
+            this.iconoPropio = iconoPropio;
+            this.color = color;
             putValue(Action.NAME, nombreBoton);
             putValue(Action.SMALL_ICON, iconoPropio);
             putValue(Action.SHORT_DESCRIPTION, "Poner el Panel de color: "+nombreBoton);
@@ -131,8 +151,15 @@ public final class Panel extends JPanel {
         }
         @Override
         public void actionPerformed(ActionEvent e) {
-            Color colorSelected = (Color) getValue("ColorBackground");
+            colorSelected = (Color) getValue("ColorBackground");
             setBackground(colorSelected);
+        }
+    }
+
+    private final class ListenerNewWindow implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            Frame.CreateNewWindow createNewWindow = new Frame().new CreateNewWindow(btn2);
         }
     }
 }
