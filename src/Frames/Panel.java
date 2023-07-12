@@ -56,6 +56,15 @@ public final class Panel extends JPanel {
 
         jTextField2.setBounds(275, 50, 100, 20);
         add(jTextField2);
+
+        InputMap inputMap = getInputMap(JComponent.WHEN_IN_FOCUSED_WINDOW);
+        inputMap.put(KeyStroke.getKeyStroke("ctrl B"), "actionMapKey1");
+        inputMap.put(KeyStroke.getKeyStroke("shift B"), "actionMapKey1");
+        inputMap.put(KeyStroke.getKeyStroke("ctrl R"), "actionMapKey2");
+        inputMap.put(KeyStroke.getKeyStroke("shift R"), "actionMapKey2");
+        ActionMap actionMap = getActionMap();
+        actionMap.put("actionMapKey1",actionButton1);
+        actionMap.put("actionMapKey2",actionButton2);
     }
 
     @Override
